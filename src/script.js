@@ -166,8 +166,11 @@ if (hasTouchScreen) {
   // Disable desktop function
   window.removeEventListener("pointermove", moveHandler);
   controls.enableRotate = false;
-    
-  // Mobile
+
+  // Mobile camera size
+  camera.position.z = 30;
+
+  // Mobile touch event
   window.addEventListener("touchstart", (event) => {
     displacement.screenCursor.x =
       (event.touches[0].clientX / sizes.width) * 2 - 1;
