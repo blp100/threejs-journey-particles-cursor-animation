@@ -117,6 +117,7 @@ displacement.raycaster = new THREE.Raycaster();
 // Coordinates
 displacement.screenCursor = new THREE.Vector2(9999, 9999); // by default, the position would be the center and ruin dogs nose. So we change the position.
 displacement.canvasCursor = new THREE.Vector2(9999, 9999);
+displacement.canvasCursorPrevious = new THREE.Vector2(9999, 9999);
 
 window.addEventListener("pointermove", (event) => {
   displacement.screenCursor.x = (event.clientX / sizes.width) * 2 - 1;
@@ -204,11 +205,18 @@ const tick = () => {
     displacement.canvas.height
   );
 
+  // Speed alpha
+  const cursorDistance = displacement.canvasCursorPrevious.distanceTo(
+    displacement.canvasCursor
+  );
+  displacement.canvasCursorPrevious.copy(displacement.canvasCursor);
+  const alpha = Math.min(cursorDistance * 0.1, 1);
+
   // Draw glow
   const glowSize = displacement.canvas.width * 0.25;
 
   displacement.context.globalCompositeOperation = "lighten";
-  displacement.context.globalAlpha = 1;
+  displacement.context.globalAlpha = alpha;
   displacement.context.drawImage(
     displacement.glowImage,
     displacement.canvasCursor.x - glowSize * 0.5,
