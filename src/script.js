@@ -118,7 +118,7 @@ displacement.screenCursor = new THREE.Vector2(9999, 9999); // by default, the po
 
 window.addEventListener("pointermove", (event) => {
   displacement.screenCursor.x = (event.clientX / sizes.width) * 2 - 1;
-  displacement.screenCursor.y = (event.clientY / sizes.height) * 2 + 1;
+  displacement.screenCursor.y = -(event.clientY / sizes.height) * 2 + 1;
 });
 
 /**
