@@ -131,10 +131,60 @@ displacement.screenCursor = new THREE.Vector2(9999, 9999); // by default, the po
 displacement.canvasCursor = new THREE.Vector2(9999, 9999);
 displacement.canvasCursorPrevious = new THREE.Vector2(9999, 9999);
 
-window.addEventListener("pointermove", (event) => {
+// Handlers
+const moveHandler = (event) => {
   displacement.screenCursor.x = (event.clientX / sizes.width) * 2 - 1;
   displacement.screenCursor.y = -(event.clientY / sizes.height) * 2 + 1;
-});
+};
+window.addEventListener("pointermove", moveHandler);
+
+// Mobile
+// Mobile finger
+const fingerPositon = { x: 0, y: 0 };
+
+let hasTouchScreen = false;
+if ("maxTouchPoints" in navigator) {
+  hasTouchScreen = navigator.maxTouchPoints > 0;
+} else if ("msMaxTouchPoints" in navigator) {
+  hasTouchScreen = navigator.msMaxTouchPoints > 0;
+} else {
+  const mQ = matchMedia?.("(pointer:coarse)");
+  if (mQ?.media === "(pointer:coarse)") {
+    hasTouchScreen = !!mQ.matches;
+  } else if ("orientation" in window) {
+    hasTouchScreen = true; // deprecated, but good fallback
+  } else {
+    // Only as a last resort, fall back to user agent sniffing
+    const UA = navigator.userAgent;
+    hasTouchScreen =
+      /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+      /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA);
+  }
+}
+
+if (hasTouchScreen) {
+  // Disable desktop function
+  window.removeEventListener("pointermove", moveHandler);
+  controls.enableRotate = false;
+    
+  // Mobile
+  window.addEventListener("touchstart", (event) => {
+    displacement.screenCursor.x =
+      (event.touches[0].clientX / sizes.width) * 2 - 1;
+    displacement.screenCursor.y =
+      -(event.touches[0].clientY / sizes.height) * 2 + 1;
+  });
+  window.addEventListener("touchmove", (event) => {
+    displacement.screenCursor.x =
+      (event.touches[0].clientX / sizes.width) * 2 - 1;
+    displacement.screenCursor.y =
+      -(event.touches[0].clientY / sizes.height) * 2 + 1;
+  });
+  window.addEventListener("touchend", (event) => {
+    displacement.screenCursor.x = 9999;
+    displacement.screenCursor.y = 9999;
+  });
+}
 
 // Texture
 displacement.texture = new THREE.CanvasTexture(displacement.canvas);
