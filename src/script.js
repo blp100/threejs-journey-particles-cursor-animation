@@ -80,15 +80,17 @@ const displacement = {};
 
 // 2D canvas
 displacement.canvas = document.createElement("canvas");
-displacement.canvas.width = 128;
-displacement.canvas.height = 128;
-displacement.canvas.style.position = "fixed";
-displacement.canvas.style.width = "256px";
-displacement.canvas.style.height = "256px";
-displacement.canvas.style.top = 0;
-displacement.canvas.style.left = 0;
-displacement.canvas.style.zIndex = 10;
-document.body.append(displacement.canvas);
+if (window.location.hash === "#debug") {
+  displacement.canvas.width = 128;
+  displacement.canvas.height = 128;
+  displacement.canvas.style.position = "fixed";
+  displacement.canvas.style.width = "256px";
+  displacement.canvas.style.height = "256px";
+  displacement.canvas.style.top = 0;
+  displacement.canvas.style.left = 0;
+  displacement.canvas.style.zIndex = 10;
+  document.body.append(displacement.canvas);
+}
 
 // Context
 displacement.context = displacement.canvas.getContext("2d");
