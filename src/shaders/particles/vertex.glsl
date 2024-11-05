@@ -11,6 +11,7 @@ void main() {
     // Displacement
     vec3 newPosition = position;
     float displacementIntensity = texture(uDisplacementTexture, uv).r;
+    displacementIntensity = smoothstep(0.1, 1.0, displacementIntensity); // Add it for the 2d canvas drawing cause remaining the track
 
     vec3 displacement = vec3(cos(aAngle) * 0.2, sin(aAngle) * 0.2, 1.0);
     displacement = normalize(displacement); // normalize for the displacement might be to strong on the edge
