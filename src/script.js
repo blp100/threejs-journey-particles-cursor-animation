@@ -21,9 +21,9 @@ const gui = new GUI();
 const debugObjects = {
   particlesColor: "#fff4b7",
 };
-if (window.location.hash !== "#debug") {
-  gui.hide();
-}
+// if (window.location.hash !== "#debug") {
+//   gui.hide();
+// }
 
 /**
  * Sizes
