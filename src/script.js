@@ -168,6 +168,14 @@ const tick = () => {
   /**
    * Displacement
    */
+  displacement.context.globalCompositeOperation = "source-over";
+  displacement.context.fillRect(
+    0,
+    0,
+    displacement.canvas.width,
+    displacement.canvas.height
+  );
+
   // Draw glow
   const glowSize = displacement.canvas.width * 0.25;
 
