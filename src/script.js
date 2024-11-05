@@ -162,13 +162,13 @@ const tick = () => {
     const uv = intersections[0].uv;
 
     displacement.canvasCursor.x = uv.x * displacement.canvas.width;
-    displacement.canvasCursor.y = uv.y * displacement.canvas.height;
+    displacement.canvasCursor.y = (1 - uv.y) * displacement.canvas.height;
   }
 
   /**
    * Displacement
    */
-  displacement.context.globalCompositeOperation = 'lighten';
+  displacement.context.globalCompositeOperation = "lighten";
   displacement.context.drawImage(
     displacement.glowImage,
     displacement.canvasCursor.x,
