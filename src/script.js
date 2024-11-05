@@ -130,7 +130,8 @@ displacement.texture = new THREE.CanvasTexture(displacement.canvas);
  * Particles
  */
 const particlesGeometry = new THREE.PlaneGeometry(10, 10, 128, 128);
-particlesGeometry.setIndex(null);   // fix 6 vertices on each index
+particlesGeometry.setIndex(null); // fix 6 vertices on each index
+particlesGeometry.deleteAttribute("normal");
 
 const intensityArray = new Float32Array(
   particlesGeometry.attributes.position.count
