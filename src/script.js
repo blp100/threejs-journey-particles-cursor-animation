@@ -115,6 +115,7 @@ displacement.raycaster = new THREE.Raycaster();
 
 // Coordinates
 displacement.screenCursor = new THREE.Vector2(9999, 9999); // by default, the position would be the center and ruin dogs nose. So we change the position.
+displacement.canvasCursor = new THREE.Vector2(9999, 9999);
 
 window.addEventListener("pointermove", (event) => {
   displacement.screenCursor.x = (event.clientX / sizes.width) * 2 - 1;
@@ -156,6 +157,13 @@ const tick = () => {
   const intersections = displacement.raycaster.intersectObject(
     displacement.interactivePlane
   );
+
+  if (intersections.length !== 0) {
+    const uv = intersections[0].uv;
+
+    displacement.canvasCursor.x = uv.x * displacement.canvas.width;
+    displacement.canvasCursor.y = uv.y * displacement.canvas.height;
+  }
 
   // Render
   renderer.render(scene, camera);
