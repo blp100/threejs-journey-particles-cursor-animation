@@ -169,7 +169,7 @@ const tick = () => {
    * Displacement
    */
   displacement.context.globalCompositeOperation = "source-over";
-  displacement.context.globalAlpha = 0.1;
+  displacement.context.globalAlpha = 0.02;
   displacement.context.fillRect(
     0,
     0,
@@ -181,7 +181,7 @@ const tick = () => {
   const glowSize = displacement.canvas.width * 0.25;
 
   displacement.context.globalCompositeOperation = "lighten";
-  displacement.context.globalAlpha = 1.0;
+  displacement.context.globalAlpha = 1;
   displacement.context.drawImage(
     displacement.glowImage,
     displacement.canvasCursor.x - glowSize * 0.5,
