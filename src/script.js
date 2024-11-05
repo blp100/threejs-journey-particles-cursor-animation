@@ -19,7 +19,7 @@ const textureLoader = new THREE.TextureLoader();
 // Debug
 const gui = new GUI();
 const debugObjects = {
-  particlesColor: "#fff4b7",
+  particlesColor: "#e0f0f0",
 };
 // if (window.location.hash !== "#debug") {
 //   gui.hide();
