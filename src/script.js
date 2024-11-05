@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import particlesVertexShader from "./shaders/particles/vertex.glsl";
 import particlesFragmentShader from "./shaders/particles/fragment.glsl";
+import GUI from "lil-gui";
 
 /**
  * Base
@@ -14,6 +15,15 @@ const scene = new THREE.Scene();
 
 // Loaders
 const textureLoader = new THREE.TextureLoader();
+
+// Debug
+const gui = new GUI();
+const debugObjects = {
+  particlesColor: "#fff4b7",
+};
+if (window.location.hash !== "#debug") {
+  gui.hide();
+}
 
 /**
  * Sizes
@@ -168,10 +178,18 @@ const particlesMaterial = new THREE.ShaderMaterial({
     ),
     uPictureTexture: new THREE.Uniform(textureLoader.load("./picture-1.png")),
     uDisplacementTexture: new THREE.Uniform(displacement.texture),
+    uColor: new THREE.Uniform(new THREE.Color(debugObjects.particlesColor)),
   },
 });
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particles);
+
+// Debug
+gui.addColor(debugObjects, "particlesColor").onChange(() => {
+  particlesMaterial.uniforms.uColor.value = new THREE.Color(
+    debugObjects.particlesColor
+  );
+});
 
 /**
  * Animate
