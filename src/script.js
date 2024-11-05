@@ -108,6 +108,7 @@ displacement.interactivePlane = new THREE.Mesh(
   new THREE.PlaneGeometry(10, 10),
   new THREE.MeshBasicMaterial({ color: "red" })
 );
+displacement.interactivePlane.visible = false;
 scene.add(displacement.interactivePlane);
 
 // Raycaster
