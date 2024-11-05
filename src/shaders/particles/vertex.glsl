@@ -13,6 +13,7 @@ void main() {
     float displacementIntensity = texture(uDisplacementTexture, uv).r;
 
     vec3 displacement = vec3(cos(aAngle) * 0.2, sin(aAngle) * 0.2, 1.0);
+    displacement = normalize(displacement); // normalize for the displacement might be to strong on the edge
     displacement *= displacementIntensity;
     displacement *= 3.0;
     displacement *= aIntensity;
