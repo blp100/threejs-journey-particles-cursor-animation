@@ -165,6 +165,17 @@ const tick = () => {
     displacement.canvasCursor.y = uv.y * displacement.canvas.height;
   }
 
+  /**
+   * Displacement
+   */
+  displacement.context.drawImage(
+    displacement.glowImage,
+    displacement.canvasCursor.x,
+    displacement.canvasCursor.y,
+    32,
+    32
+  );
+
   // Render
   renderer.render(scene, camera);
 
