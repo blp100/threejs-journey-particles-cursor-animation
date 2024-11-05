@@ -168,6 +168,7 @@ const tick = () => {
   /**
    * Displacement
    */
+  displacement.context.globalCompositeOperation = 'lighten';
   displacement.context.drawImage(
     displacement.glowImage,
     displacement.canvasCursor.x,
