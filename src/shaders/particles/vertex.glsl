@@ -12,7 +12,7 @@ void main() {
     vec3 newPosition = position;
     float displacementIntensity = texture(uDisplacementTexture, uv).r;
 
-    vec3 displacement = vec3(cos(aAngle), sin(aAngle), 1.0);
+    vec3 displacement = vec3(cos(aAngle) * 0.2, sin(aAngle) * 0.2, 1.0);
     displacement *= displacementIntensity;
     displacement *= 3.0;
     displacement *= aIntensity;
