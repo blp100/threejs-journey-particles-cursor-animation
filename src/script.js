@@ -135,15 +135,18 @@ displacement.canvasCursorPrevious = new THREE.Vector2(9999, 9999);
 
 // Handlers
 const moveHandler = (event) => {
-  displacement.screenCursor.x = (event.clientX / sizes.width) * 2 - 1;
-  displacement.screenCursor.y = -(event.clientY / sizes.height) * 2 + 1;
+  const clientX = event.type.startsWith("pointer")
+    ? event.clientX
+    : event.touches[0].clientX;
+  const clientY = event.type.startsWith("pointer")
+    ? event.clientY
+    : event.touches[0].clientY;
+  displacement.screenCursor.x = (clientX / sizes.width) * 2 - 1;
+  displacement.screenCursor.y = -(clientY / sizes.height) * 2 + 1;
 };
 window.addEventListener("pointermove", moveHandler);
 
-// Mobile
-// Mobile finger
-const fingerPositon = { x: 0, y: 0 };
-
+// Mobile detection
 let hasTouchScreen = false;
 if ("maxTouchPoints" in navigator) {
   hasTouchScreen = navigator.maxTouchPoints > 0;
@@ -164,6 +167,7 @@ if ("maxTouchPoints" in navigator) {
   }
 }
 
+// Mobile interaction
 if (hasTouchScreen) {
   // Disable desktop function
   window.removeEventListener("pointermove", moveHandler);
@@ -172,19 +176,9 @@ if (hasTouchScreen) {
   camera.position.z = 30;
 
   // Mobile touch event
-  window.addEventListener("touchstart", (event) => {
-    displacement.screenCursor.x =
-      (event.touches[0].clientX / sizes.width) * 2 - 1;
-    displacement.screenCursor.y =
-      -(event.touches[0].clientY / sizes.height) * 2 + 1;
-  });
-  window.addEventListener("touchmove", (event) => {
-    displacement.screenCursor.x =
-      (event.touches[0].clientX / sizes.width) * 2 - 1;
-    displacement.screenCursor.y =
-      -(event.touches[0].clientY / sizes.height) * 2 + 1;
-  });
-  window.addEventListener("touchend", (event) => {
+  window.addEventListener("touchstart", moveHandler);
+  window.addEventListener("touchmove", moveHandler);
+  window.addEventListener("touchend", () => {
     displacement.screenCursor.x = 9999;
     displacement.screenCursor.y = 9999;
   });
