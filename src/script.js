@@ -71,6 +71,8 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.touches.ONE = null;
+controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
 
 /**
  * Renderer
@@ -165,7 +167,6 @@ if ("maxTouchPoints" in navigator) {
 if (hasTouchScreen) {
   // Disable desktop function
   window.removeEventListener("pointermove", moveHandler);
-  controls.enableRotate = false;
 
   // Mobile camera size
   camera.position.z = 30;
